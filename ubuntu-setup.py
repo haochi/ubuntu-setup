@@ -16,11 +16,13 @@ def is_snap_installed(snap: str):
   except:
     return False
 
-def install_snap(snap: str, classic: bool=False):
+def install_snap(snap: str, classic: bool=False, channel: str = None):
   if not is_snap_installed(snap):
     args = ['sudo', 'snap', 'install']
     if classic:
       args.append('--classic')
+    if channel is not None:
+      args.append('--channel={}'.format(channel))
     args.append(snap)
     is_being_installed(snap)
     run(args)
@@ -62,7 +64,7 @@ def is_font_installed(font: str):
   return any(font == f for f in fonts)
 
 def is_being_installed(thing: str):
-  print('{} is being installed installed'.format(thing))
+  print('{} is being installed'.format(thing))
 
 def has_been_installed(thing: str):
   print('{} is already installed; skipping'.format(thing))
@@ -94,6 +96,7 @@ def main():
   apt_install('git')
 
   install_snap('code', classic=True)
+  install_snap('node', classic=True, channel='12')
   install_snap('vlc')
 
   install_unite_shell()
