@@ -94,6 +94,7 @@ def main():
   apt_install('git')
 
   install_snap('code', classic=True)
+  install_snap('vlc')
 
   install_unite_shell()
   install_font_san_francisco()
